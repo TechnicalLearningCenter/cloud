@@ -10,16 +10,21 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-lambda-java-core</artifactId>
             <version>1.1.0</version>
         </dependency>
-      <!--  &lt;!&ndash; https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk &ndash;&gt;
+        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
             <version>1.11.466</version>
-        </dependency>-->
+        </dependency>
 
     </dependencies>
     <distributionManagement>

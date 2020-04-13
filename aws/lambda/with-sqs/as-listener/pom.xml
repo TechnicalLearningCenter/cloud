@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>lambda</groupId>
-    <artifactId>lambda.methodhandler</artifactId>
-    <version>1.0.2</version>
+    <groupId>com.pankaj.aws.java</groupId>
+    <artifactId>lambda.sqs.sender.methodhandler</artifactId>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
@@ -14,6 +14,13 @@
             <artifactId>aws-lambda-java-core</artifactId>
             <version>1.1.0</version>
         </dependency>
+      <!--  &lt;!&ndash; https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk &ndash;&gt;
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.11.466</version>
+        </dependency>-->
+
     </dependencies>
     <distributionManagement>
         <repository>

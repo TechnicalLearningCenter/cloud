@@ -1,5 +1,0 @@
- there are 3 ways of creating a handler:
-
- Creating a custom MethodHandler
- Implementing the RequestHandler interface
- Implementing the RequestStreamHandler interface

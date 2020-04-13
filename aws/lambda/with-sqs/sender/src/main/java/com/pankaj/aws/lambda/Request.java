@@ -1,4 +1,4 @@
-package com.pankaj.aws.api.lambda.requestMethodHandler;
+package com.pankaj.aws.lambda;
 
 /**
  * Created by pankaj on 11/2/2018.
@@ -21,6 +21,15 @@ public class Request {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public Request(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Request() {
     }
 
     @Override
