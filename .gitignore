@@ -1,0 +1,6 @@
+.idea/
+chapter-1/.idea
+aws/lambda/With-api
+aws/lambda/with-s3/target
+aws/lambda/with-sns/target
+aws/lambda/with-sqs/target
