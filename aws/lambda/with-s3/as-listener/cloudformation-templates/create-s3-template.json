@@ -7,7 +7,7 @@
       "Type" : "AWS::S3::Bucket",
       "DeletionPolicy": "Retain",
       "Properties" : {
-        "BucketName" : "my-bucket"
+        "BucketName" : "my-first-cloudformation-bucket"
       }
     }
   }

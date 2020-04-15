@@ -1,0 +1,134 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "BucketPrefix": {
+      "Type": "String",
+      "Default": "test-bucket-name"
+    }
+  },
+  "Resources": {
+    "EncryptionServiceBucket": {
+      "DependsOn": "LambdaInvokePermission",
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": {
+          "Fn::Sub": "${BucketPrefix}-encryption-service"
+        },
+        "NotificationConfiguration": {
+          "LambdaConfigurations": [
+            {
+              "Function": {
+                "Fn::GetAtt": [
+                  "AppendItemToListFunction",
+                  "Arn"
+                ]
+              },
+              "Event": "s3:ObjectCreated:*",
+              "Filter": {
+                "S3Key": {
+                  "Rules": [
+                    {
+                      "Name": "suffix",
+                      "Value": "zip"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "LambdaInvokePermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "AppendItemToListFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "s3.amazonaws.com",
+        "SourceAccount": {
+          "Ref": "AWS::AccountId"
+        },
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:s3:::",
+              {
+                "Fn::Sub": "${BucketPrefix}-encryption-service"
+              }
+            ]
+          ]
+        }
+      }
+    },
+    "AppendItemToListFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "LambdaExecutionRole",
+            "Arn"
+          ]
+        },
+        "Code": {
+          "ZipFile": {
+            "Fn::Join": [
+              "",
+              [
+                "exports.handler = function(event, context) {",
+                "console.log('Received event: ', JSON.stringify(event, null, 2));",
+                "};"
+              ]
+            ]
+          }
+        },
+        "Runtime": "nodejs8.10"
+      }
+    },
+    "LambdaExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "root",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:*"
+                  ],
+                  "Resource": "arn:aws:logs:*:*:*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
